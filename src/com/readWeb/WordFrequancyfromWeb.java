@@ -147,11 +147,19 @@ public class WordFrequancyfromWeb {
      public static void findDuplicates()
      {  
     	 map.entrySet().stream()
-    	   .collect(Collectors.groupingBy(Entry::getValue,
-    	               Collectors.mapping(Entry::getKey, Collectors.toList())))
-    	   .entrySet().stream()
-    	   .filter(e -> e.getValue().size() > 1)
-    	   .filter(e -> e.getKey() > 190)
-    	   .forEach(System.out::println);
+    	 .collect(Collectors.groupingBy(Entry::getValue,
+    			 Collectors.mapping(Entry::getKey, Collectors.toList())))
+    	 .entrySet().stream()
+    	 .filter(e -> e.getValue().size() > 1)
+    	 //.filter(e -> e.getKey() > 190)
+    	 .sorted(new Comparator<Entry<Integer, List<String>>>() {
+    		 public int compare(Entry o1,  
+    				 Entry o2) 
+    		 { 
+    			 return ((Integer) o2.getKey()).compareTo((Integer) o1.getKey()); 
+    		 } 
+    	 })
+    	 .limit(10)
+    	 .forEach(System.out::println);
      }
 }
