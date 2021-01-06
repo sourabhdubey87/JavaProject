@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,11 +30,15 @@ public class WordFrequancyfromWeb {
      public static void main(String[] args) throws IOException {
  
     	 WordFrequancyfromWeb obj = new WordFrequancyfromWeb();
+    	 /*Scanner sc= new Scanner(System.in); //System.in is a standard input stream  
+    	 System.out.print("Enter a URL: ");  
+    	 String my_site= sc.nextLine().trim();              //reads string 
+    	 System.out.println("You entered URL : " + my_site);*/
          my_site = "https://www.314e.com/";
-         obj.get_links("https://www.314e.com/", 4);
+         obj.get_links(my_site, 4);
          System.out.println("Internal urls:");
          System.out.println(uniqueURL);
-         updateFequancyMap();
+         updateFequancyMap(my_site);
          System.out.println("Top 10 frequent words");
          System.out.println(getTopFrequantWord(10));
          
@@ -69,13 +74,13 @@ public class WordFrequancyfromWeb {
  
      }
      
-     private static void updateFequancyMap() throws IOException {
+     private static void updateFequancyMap(String url) throws IOException {
  		Connection conn = null;
  		Document doc = null;
  		String result = null;
     	 for (String link : uniqueURL) {
  			//System.out.println("link : " + link);
- 			if(link.contains("https://www.314e.com")) {
+ 			if(link.contains(url)) {
  				//Connecting to the web page
  				conn = Jsoup.connect(link);
  				//executing the get request
